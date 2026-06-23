@@ -21,7 +21,7 @@
         <img src="elsati.png" alt="Elsati Connect logo">
       </a>
 
-      <nav class="nav">
+      <nav class="nav" aria-label="Main navigation">
         <a class="active" href="index.html">Home</a>
         <a href="about.html">About Us</a>
         <a href="how-it-works.html">How It Works</a>
@@ -441,6 +441,13 @@
         </div>
 
         <div class="footer-column">
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="signin.html">Log In</a>
+        </div>
+
+        <div class="footer-column">
           <h4>Legal</h4>
           <a href="privacy-policy.html">Privacy Policy</a>
           <a href="terms-of-service.html">Terms of Service</a>
@@ -459,6 +466,33 @@
     </footer>
 
   </div>
+
+  <script>
+    (function () {
+      const topbar = document.querySelector(".topbar");
+      let lastScrollY = window.scrollY;
+
+      if (!topbar) return;
+
+      window.addEventListener("scroll", function () {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > 40) {
+          topbar.classList.add("topbar-scrolled");
+        } else {
+          topbar.classList.remove("topbar-scrolled");
+        }
+
+        if (currentScrollY > lastScrollY && currentScrollY > 140) {
+          topbar.classList.add("topbar-hidden");
+        } else {
+          topbar.classList.remove("topbar-hidden");
+        }
+
+        lastScrollY = currentScrollY;
+      });
+    })();
+  </script>
 
   <script src="script.js"></script>
 </body>
