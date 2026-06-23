@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Business | Elsati Connect</title>
+  <meta name="description" content="Register your business on Elsati Connect.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions topbar-actions-compact">
+        <a class="login-icon-link" href="signin.html" aria-label="Log in">
+          <span class="login-icon"></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="auth-layout reveal">
+
+      <section class="auth-panel">
+        <p class="eyebrow">Business registration</p>
+
+        <h1>Create your buyer workspace.</h1>
+
+        <p class="auth-copy">
+          Register your organization to discover verified suppliers,
+          create RFQs, and compare quotations digitally.
+        </p>
+
+        <form class="contact-form auth-form" id="business-register-form">
+
+          <label>
+            Business name
+            <input
+              type="text"
+              name="company"
+              placeholder="Elsati Trading Ltd"
+              required
+            >
+          </label>
+
+          <label>
+            Contact person
+            <input
+              type="text"
+              name="name"
+              placeholder="Full name"
+              required
+            >
+          </label>
+
+          <label>
+            Work email
+            <input
+              type="email"
+              name="email"
+              placeholder="name@company.com"
+              required
+            >
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              placeholder="Create password"
+              required
+            >
+          </label>
+
+          <button class="button button-primary" type="submit">
+            Register Business
+          </button>
+
+        </form>
+
+        <p class="form-feedback" id="business-register-feedback"></p>
+
+        <p class="auth-note">
+          Already registered?
+          <a href="customer-signin.html">Sign in as business</a>
+        </p>
+
+      </section>
+
+      <section class="dashboard-preview customer-preview register-preview">
+
+        <div class="preview-topbar">
+          <span class="preview-brand">Elsati Connect</span>
+
+          <nav>
+            <span>Verified suppliers</span>
+            <span>RFQ creation</span>
+            <span>Reports</span>
+          </nav>
+
+          <button class="mini-cta">Start sourcing</button>
+        </div>
+
+        <div class="preview-body register-body">
+
+          <div class="register-highlight-grid">
+
+            <article>
+              <strong>Verified Supplier Network</strong>
+              <p>Physical visits, PACRA, ZRA, and bank validation.</p>
+            </article>
+
+            <article>
+              <strong>Digital Procurement</strong>
+              <p>Create RFQs and compare quotations in one workspace.</p>
+            </article>
+
+            <article>
+              <strong>Cost Reduction</strong>
+              <p>Transparent pricing and competitive bidding reduce leakage.</p>
+            </article>
+
+            <article>
+              <strong>Analytics</strong>
+              <p>Spend and supplier performance insight for stronger decisions.</p>
+            </article>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Main site JS -->
+  <script src="script.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <!-- Business Registration -->
+  <script>
+    const supabaseClient = supabase.createClient(
+      window.ELSATI_SUPABASE.url,
+      window.ELSATI_SUPABASE.publishableKey
+    );
+
+    const form = document.getElementById("business-register-form");
+    const feedback = document.getElementById("business-register-feedback");
+
+    form.addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      const companyName = document.querySelector('input[name="company"]').value;
+      const contactName = document.querySelector('input[name="name"]').value;
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+
+      feedback.textContent = "Creating business account...";
+
+      // Create auth user
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        feedback.textContent = error.message;
+        return;
+      }
+
+      if (!data.user) {
+        feedback.textContent = "User creation failed.";
+        return;
+      }
+
+      // Insert profile
+      const { error: profileError } = await supabaseClient
+        .from("profiles")
+        .insert({
+          id: data.user.id,
+          email: email,
+          role: "business",
+          company_name: companyName,
+          phone: contactName
+        });
+
+      if (profileError) {
+        feedback.textContent = profileError.message;
+        return;
+      }
+
+      feedback.textContent = "Business account created successfully.";
+
+      setTimeout(() => {
+        window.location.href = "customer-signin.html";
+      }, 1500);
+
+    });
+  </script>
+
+</body>
+</html>

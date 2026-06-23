@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Sign In | Elsati Connect</title>
+  <meta name="description" content="Customer sign in for Elsati Connect procurement teams.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions topbar-actions-compact">
+        <a class="login-icon-link" href="signin.html" aria-label="Log in">
+          <span class="login-icon"></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="auth-layout customer-auth reveal">
+      <section class="auth-panel">
+        <p class="eyebrow">Customer Sign In</p>
+        <h1>Access your procurement dashboard.</h1>
+        <p class="auth-copy">Review requests, manage quotations, and track supplier performance from one workspace.</p>
+
+        <form class="contact-form auth-form" id="business-signin-form">
+          <label>
+            Work email
+            <input type="email" name="email" placeholder="name@company.com" required>
+          </label>
+
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Enter password" required>
+          </label>
+
+          <div class="auth-options">
+            <label class="checkbox-row">
+              <input type="checkbox"> Keep me signed in
+            </label>
+            <a href="register-business.html">Need an account?</a>
+          </div>
+
+          <button class="button button-primary" type="submit">
+            Sign in as Customer
+          </button>
+        </form>
+
+        <p class="form-feedback" id="business-signin-feedback"></p>
+        <p class="auth-note">Need an account? <a href="register-business.html">Register your business team</a></p>
+      </section>
+
+      <section class="dashboard-preview customer-preview">
+        <div class="preview-topbar">
+          <span class="preview-brand">Elsati Connect</span>
+          <nav>
+            <span>Dashboard</span>
+            <span>Create Request</span>
+            <span>Quotations</span>
+            <span>Suppliers</span>
+          </nav>
+          <button class="mini-cta">New Request</button>
+        </div>
+
+        <div class="preview-body">
+          <aside class="preview-sidebar">
+            <span>Dashboard</span>
+            <span>Create Request</span>
+            <span>My Requests</span>
+            <span class="active">Quotation</span>
+            <span>Suppliers</span>
+            <span>Reports</span>
+            <span>Settings</span>
+          </aside>
+
+          <div class="preview-main">
+            <div class="preview-stat-row">
+              <article><small>Open Requests</small><strong>4</strong></article>
+              <article><small>Pending Quotations</small><strong>6</strong></article>
+              <article><small>Approved Orders</small><strong>3</strong></article>
+              <article><small>Monthly Procurement</small><strong>K321,500</strong></article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      window.ELSATI_SUPABASE.url,
+      window.ELSATI_SUPABASE.publishableKey
+    );
+
+    const form = document.getElementById("business-signin-form");
+    const feedback = document.getElementById("business-signin-feedback");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const email = document.querySelector('input[name="email"]').value.trim();
+      const password = document.querySelector('input[name="password"]').value;
+
+      feedback.textContent = "Signing in...";
+      feedback.className = "form-feedback";
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        feedback.textContent = error.message;
+        feedback.className = "form-feedback error";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", data.user.id)
+        .maybeSingle();
+
+      if (profileError || !profile) {
+        feedback.textContent = "Profile not found. Please contact administrator.";
+        feedback.className = "form-feedback error";
+        return;
+      }
+
+      if (profile.role !== "business") {
+        feedback.textContent = "This account is not registered as a business.";
+        feedback.className = "form-feedback error";
+        await supabaseClient.auth.signOut();
+        return;
+      }
+
+      feedback.textContent = "Login successful. Opening dashboard...";
+      feedback.className = "form-feedback ok";
+
+      if (profile.is_admin === true) {
+        window.location.href = "admin-dashboard.html";
+      } else {
+        window.location.href = "business-dashboard.html";
+      }
+    });
+  </script>
+</body>
+</html>

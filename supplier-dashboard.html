@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Dashboard | Elsati Connect</title>
+  <meta name="description" content="Supplier dashboard for Elsati Connect.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .supplier-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .supplier-kpi-card,
+    .verification-panel,
+    .profile-panel {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .supplier-kpi-card span {
+      color: #64748b;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .supplier-kpi-card strong {
+      display: block;
+      font-size: 34px;
+      margin-top: 8px;
+      color: #102033;
+    }
+
+    .supplier-status-badge {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 10px;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .closed-badge {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .supplier-dashboard-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .notification-btn {
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .verification-warning {
+      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .verification-note {
+      margin-top: 12px;
+      color: #64748b;
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .profile-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .profile-form-grid label.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .rfq-section-block {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .rfq-section-block h3 {
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .supplier-kpi-grid,
+      .profile-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .supplier-kpi-grid,
+      .profile-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .supplier-dashboard-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions supplier-dashboard-actions">
+        <button class="notification-btn" type="button">🔔</button>
+        <a class="button button-secondary" href="monitor.html">Background Monitor</a>
+        <button class="button button-secondary" id="logout-button" type="button">Log out</button>
+      </div>
+    </header>
+
+    <main class="dashboard-page reveal">
+      <section class="dashboard-intro">
+        <p class="eyebrow">Supplier dashboard</p>
+
+        <h1>
+          Welcome, <span id="dashboard-user-name">Supplier user</span>.
+        </h1>
+
+        <p class="auth-copy">
+          Your supplier profile
+          <strong id="dashboard-company-name">Company</strong>
+          can review RFQs, submit quotations, and track award status once verified.
+        </p>
+      </section>
+
+      <section class="supplier-kpi-grid">
+        <article class="supplier-kpi-card">
+          <span>Open RFQs</span>
+          <strong id="supplier-open-rfq-count">0</strong>
+        </article>
+
+        <article class="supplier-kpi-card">
+          <span>Submitted Quotes</span>
+          <strong id="supplier-submitted-quote-count">0</strong>
+        </article>
+
+        <article class="supplier-kpi-card">
+          <span>Won Orders</span>
+          <strong id="supplier-won-order-count">0</strong>
+        </article>
+
+        <article class="supplier-kpi-card">
+          <span>Response Rate</span>
+          <strong id="supplier-response-rate">0%</strong>
+        </article>
+      </section>
+
+      <section class="profile-panel">
+        <div class="panel-head">
+          <h2>Supplier profile</h2>
+          <span>Complete your company profile for buyers and ELSATI admin review</span>
+        </div>
+
+        <form class="contact-form compact-form" id="supplier-profile-form">
+          <div class="profile-form-grid">
+            <label>
+              Supplier company name
+              <input type="text" name="company_name" placeholder="Your supplier company" required>
+            </label>
+
+            <label>
+              Supplier category
+              <input type="text" name="supplier_category" placeholder="Stationery, ICT, logistics, furniture...">
+            </label>
+
+            <label>
+              Contact person
+              <input type="text" name="contact_person" placeholder="Full name">
+            </label>
+
+            <label>
+              Contact phone
+              <input type="text" name="contact_phone" placeholder="+260...">
+            </label>
+
+            <label>
+              City
+              <input type="text" name="city" placeholder="Lusaka">
+            </label>
+
+            <label>
+              Country
+              <input type="text" name="country" placeholder="Zambia">
+            </label>
+
+            <label>
+              Business address
+              <input type="text" name="business_address" placeholder="Physical address">
+            </label>
+
+            <label class="full-width">
+              Business description
+              <textarea name="business_description" rows="3" placeholder="Briefly describe what your company supplies, industries served, and capacity"></textarea>
+            </label>
+          </div>
+
+          <button class="button button-primary" type="submit">Save Supplier Profile</button>
+        </form>
+
+        <p class="form-feedback" id="supplier-profile-feedback"></p>
+      </section>
+
+      <section class="verification-panel">
+        <div class="panel-head">
+          <h2>Supplier Verification</h2>
+          <span>Upload compliance documents to activate your supplier account</span>
+        </div>
+
+        <div id="verification-warning" class="verification-warning">
+          Your supplier account is pending verification. Upload your PACRA and ZRA documents as PDF files before you can submit quotations.
+        </div>
+
+        <form class="contact-form compact-form" id="verification-form">
+          <label>
+            PACRA Certificate PDF
+            <input type="file" id="pacra-file" accept=".pdf,application/pdf" required>
+          </label>
+
+          <label>
+            ZRA Tax Clearance PDF
+            <input type="file" id="zra-file" accept=".pdf,application/pdf" required>
+          </label>
+
+          <button class="button button-primary" type="submit">
+            Upload Documents
+          </button>
+        </form>
+
+        <p class="form-feedback" id="verification-feedback"></p>
+
+        <p class="verification-note">
+          Only PDF documents are accepted. After uploading, ELSATI will review your documents. You will only be able to submit quotations once your supplier account is approved.
+        </p>
+      </section>
+
+      <section class="app-grid supplier-app-grid">
+        <section class="app-panel app-panel-list">
+          <div class="panel-head">
+            <h2>Client RFQs</h2>
+            <span>Open and closed procurement opportunities</span>
+          </div>
+
+          <div class="request-list" id="supplier-rfq-list">
+            <p class="empty-state">Loading live RFQs...</p>
+          </div>
+        </section>
+
+        <section class="app-panel app-panel-form">
+          <div class="panel-head">
+            <h2>Submit quotation</h2>
+            <span id="supplier-form-title">Select an open RFQ to submit your quote</span>
+          </div>
+
+          <form class="contact-form compact-form" id="supplier-quote-form">
+            <label>
+              Selected RFQ
+              <input type="text" id="supplier-selected-rfq" placeholder="Choose from the RFQ list" readonly>
+            </label>
+
+            <label>
+              Quoted price
+              <input type="number" name="price" placeholder="240" required>
+            </label>
+
+            <label>
+              Delivery period
+              <input type="text" name="delivery" placeholder="3 days" required>
+            </label>
+
+            <label>
+              Notes
+              <textarea name="notes" rows="4" placeholder="Value add, compliance notes, and fulfillment detail" required></textarea>
+            </label>
+
+            <button class="button button-primary" type="submit">Submit Quote</button>
+          </form>
+
+          <p class="form-feedback" id="supplier-quote-feedback"></p>
+        </section>
+      </section>
+
+      <section class="app-grid supplier-app-grid">
+        <section class="app-panel app-panel-table">
+          <div class="panel-head">
+            <h2>My submitted quotes</h2>
+            <span>Track pricing, shortlist and award progress</span>
+          </div>
+
+          <div class="comparison-table" id="supplier-quote-list">
+            <p class="empty-state">Submitted quotations will appear here.</p>
+          </div>
+        </section>
+
+        <section class="app-panel app-panel-report">
+          <div class="panel-head">
+            <h2>Status tracker</h2>
+            <span>Buyer review, award updates and verification status</span>
+          </div>
+
+          <div class="report-summary" id="supplier-status-summary">
+            <article>
+              <h3>Current status</h3>
+              <p>Live RFQs will appear once businesses publish requests.</p>
+            </article>
+
+            <article>
+              <h3>Verification status</h3>
+              <p id="pacra-status">PACRA verification: Pending</p>
+              <p id="zra-status">ZRA verification: Pending</p>
+              <p id="account-status">Account status: Pending</p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      window.ELSATI_SUPABASE.url,
+      window.ELSATI_SUPABASE.publishableKey
+    );
+
+    let currentSupplierProfile = null;
+
+    async function loadSupplierProfile() {
+      const { data: userData, error: userError } = await supabaseClient.auth.getUser();
+
+      if (userError || !userData.user) {
+        window.location.href = "supplier-signin.html";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", userData.user.id)
+        .maybeSingle();
+
+      if (profileError || !profile) {
+        await supabaseClient.auth.signOut();
+        window.location.href = "supplier-signin.html";
+        return;
+      }
+
+      if (profile.role !== "supplier") {
+        await supabaseClient.auth.signOut();
+        window.location.href = "signin.html";
+        return;
+      }
+
+      currentSupplierProfile = profile;
+
+      const displayName = profile.company_name || profile.email || "Supplier user";
+
+      document.getElementById("dashboard-user-name").textContent = displayName;
+      document.getElementById("dashboard-company-name").textContent = displayName;
+
+      updateVerificationUI(profile);
+    }
+
+    function updateVerificationUI(profile) {
+      const warning = document.getElementById("verification-warning");
+      const form = document.getElementById("verification-form");
+      const feedback = document.getElementById("verification-feedback");
+      const quoteForm = document.getElementById("supplier-quote-form");
+
+      const pacraStatus = document.getElementById("pacra-status");
+      const zraStatus = document.getElementById("zra-status");
+      const accountStatus = document.getElementById("account-status");
+
+      pacraStatus.textContent = profile.pacra_url
+        ? "PACRA verification: Uploaded"
+        : "PACRA verification: Pending";
+
+      zraStatus.textContent = profile.zra_url
+        ? "ZRA verification: Uploaded"
+        : "ZRA verification: Pending";
+
+      if (profile.verified === true || profile.verification_status === "approved") {
+        warning.textContent = "Verified supplier account ✓";
+        warning.style.background = "#dcfce7";
+        warning.style.color = "#166534";
+
+        form.style.display = "none";
+
+        quoteForm.style.opacity = "1";
+        quoteForm.style.pointerEvents = "auto";
+
+        accountStatus.textContent = "Account status: Verified";
+        feedback.textContent = "";
+        return;
+      }
+
+      if (profile.verification_status === "submitted") {
+        warning.textContent = "Your PDF documents have been submitted and are awaiting ELSATI review.";
+        warning.style.background = "#fef3c7";
+        warning.style.color = "#92400e";
+
+        form.style.display = "none";
+
+        quoteForm.style.opacity = "0.45";
+        quoteForm.style.pointerEvents = "none";
+
+        accountStatus.textContent = "Account status: Awaiting review";
+        feedback.textContent = "You will be able to submit quotations once ELSATI approves your documents.";
+        return;
+      }
+
+      warning.textContent = "Your supplier account is pending verification. Upload your PACRA and ZRA documents as PDF files before you can submit quotations.";
+      warning.style.background = "#fee2e2";
+      warning.style.color = "#991b1b";
+
+      quoteForm.style.opacity = "0.45";
+      quoteForm.style.pointerEvents = "none";
+
+      accountStatus.textContent = "Account status: Pending documents";
+      feedback.textContent = "";
+    }
+
+    async function uploadSupplierDocuments(event) {
+      event.preventDefault();
+
+      const feedback = document.getElementById("verification-feedback");
+      const pacraFile = document.getElementById("pacra-file").files[0];
+      const zraFile = document.getElementById("zra-file").files[0];
+
+      if (!pacraFile || !zraFile) {
+        feedback.textContent = "Please upload both PACRA and ZRA documents.";
+        return;
+      }
+
+      if (pacraFile.type !== "application/pdf") {
+        feedback.textContent = "PACRA document must be uploaded as a PDF.";
+        return;
+      }
+
+      if (zraFile.type !== "application/pdf") {
+        feedback.textContent = "ZRA Tax Clearance must be uploaded as a PDF.";
+        return;
+      }
+
+      const { data: userData } = await supabaseClient.auth.getUser();
+
+      if (!userData.user) {
+        window.location.href = "supplier-signin.html";
+        return;
+      }
+
+      const userId = userData.user.id;
+
+      feedback.textContent = "Uploading PDF documents...";
+
+      const pacraPath = `${userId}/pacra-${Date.now()}-${pacraFile.name}`;
+      const zraPath = `${userId}/zra-${Date.now()}-${zraFile.name}`;
+
+      const { error: pacraError } = await supabaseClient.storage
+        .from("supplier-documents")
+        .upload(pacraPath, pacraFile, {
+          cacheControl: "3600",
+          upsert: true,
+          contentType: "application/pdf"
+        });
+
+      if (pacraError) {
+        feedback.textContent = "PACRA upload failed: " + pacraError.message;
+        return;
+      }
+
+      const { error: zraError } = await supabaseClient.storage
+        .from("supplier-documents")
+        .upload(zraPath, zraFile, {
+          cacheControl: "3600",
+          upsert: true,
+          contentType: "application/pdf"
+        });
+
+      if (zraError) {
+        feedback.textContent = "ZRA upload failed: " + zraError.message;
+        return;
+      }
+
+      const { error: updateError } = await supabaseClient
+        .from("profiles")
+        .update({
+          pacra_url: pacraPath,
+          zra_url: zraPath,
+          documents_uploaded: true,
+          verification_status: "submitted",
+          verified: false
+        })
+        .eq("id", userId);
+
+      if (updateError) {
+        feedback.textContent = "Profile update failed: " + updateError.message;
+        return;
+      }
+
+      feedback.textContent = "PDF documents uploaded successfully. Awaiting ELSATI review.";
+
+      await loadSupplierProfile();
+    }
+
+    async function logoutUser() {
+      await supabaseClient.auth.signOut();
+      window.location.href = "supplier-signin.html";
+    }
+
+    document.getElementById("logout-button").addEventListener("click", logoutUser);
+    document.getElementById("verification-form").addEventListener("submit", uploadSupplierDocuments);
+
+    loadSupplierProfile();
+  </script>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

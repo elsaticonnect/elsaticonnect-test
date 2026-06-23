@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Elsati Connect</title>
+  <meta name="description" content="Contact Elsati Connect to register as a supplier, onboard your business, request a demo, or ask about the procurement platform.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a class="active" href="contact.html">Contact</a>
+      </nav>
+
+      <div class="topbar-actions topbar-actions-compact">
+        <a class="login-icon-link" href="signin.html" aria-label="Log in">
+          <span class="login-icon"></span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="contact-premium-hero reveal">
+        <div class="contact-hero-copy">
+          <p class="eyebrow">Contact Elsati Connect</p>
+          <h1>Start a procurement conversation with us.</h1>
+          <p>
+            Reach out to register your business, join as a supplier, request a demo,
+            or explore how Elsati Connect can support your procurement workflow.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact-form">Send Enquiry</a>
+            <a class="button button-secondary" href="how-it-works.html">View Workflow</a>
+          </div>
+        </div>
+
+        <div class="contact-info-panel">
+          <span class="plan-label">Contact details</span>
+          <h3>elsaticonnect@gmail.com</h3>
+          <p>We usually respond to enquiries within 24–48 hours.</p>
+
+          <div class="contact-mini-list">
+            <span>Business onboarding</span>
+            <span>Supplier registration</span>
+            <span>Platform demo</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-path-section reveal">
+        <div class="contact-section-head">
+          <p class="eyebrow">Choose Your Path</p>
+          <h2>Tell us what you need help with.</h2>
+        </div>
+
+        <div class="contact-path-grid">
+          <article>
+            <span>01</span>
+            <h3>Business Enquiry</h3>
+            <p>
+              For businesses that want to onboard, manage procurement requests,
+              or compare supplier quotations.
+            </p>
+          </article>
+
+          <article>
+            <span>02</span>
+            <h3>Supplier Registration</h3>
+            <p>
+              For suppliers that want to join the network, receive RFQs,
+              and submit quotations digitally.
+            </p>
+          </article>
+
+          <article>
+            <span>03</span>
+            <h3>Partnerships</h3>
+            <p>
+              For logistics, financing, ecosystem, or strategic partnerships
+              connected to procurement support.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-main-layout" id="contact-form">
+        <article class="contact-support-card reveal">
+          <p class="eyebrow">Support Details</p>
+          <h2>We will route your message to the right next step.</h2>
+
+          <div class="support-list">
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:elsaticonnect@gmail.com">elsaticonnect@gmail.com</a>
+            </div>
+
+            <div>
+              <strong>Best for</strong>
+              <span>Business onboarding, supplier access, demos, and pricing enquiries.</span>
+            </div>
+
+            <div>
+              <strong>Response time</strong>
+              <span>Usually within 24–48 hours.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="contact-form-card reveal">
+          <p class="eyebrow">Quick Enquiry</p>
+          <h2>Send us a message.</h2>
+
+          <form class="contact-form" action="https://formspree.io/f/mbdbqjpa" method="POST">
+            <input type="hidden" name="_subject" value="New Elsati Connect Website Enquiry">
+
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Your name" required>
+            </label>
+
+            <label>
+              Email
+              <input type="email" name="email" placeholder="your@email.com" required>
+            </label>
+
+            <label>
+              Company
+              <input type="text" name="company" placeholder="Company name">
+            </label>
+
+            <label>
+              Enquiry type
+              <select name="enquiry_type" required>
+                <option value="">Select enquiry type</option>
+                <option value="Business onboarding">Business onboarding</option>
+                <option value="Supplier registration">Supplier registration</option>
+                <option value="Platform demo">Platform demo</option>
+                <option value="Pricing enquiry">Pricing enquiry</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              Message
+              <textarea name="message" rows="6" placeholder="Tell us what you need" required></textarea>
+            </label>
+
+            <button class="button button-primary" type="submit">Send enquiry</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="contact-dark-cta reveal">
+        <div>
+          <p class="eyebrow">Explore First</p>
+          <h2>Want to understand the platform before reaching out?</h2>
+          <p>
+            Review the workflow and pricing pages first, then come back when you are ready to connect.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="how-it-works.html">See Workflow</a>
+          <a class="button button-secondary" href="pricing.html">View Pricing</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    const contactForm = document.querySelector(".contact-form");
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const submitButton = contactForm.querySelector("button");
+        const originalButtonText = submitButton.textContent;
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+
+        const formData = new FormData(contactForm);
+
+        try {
+          const response = await fetch(contactForm.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+              Accept: "application/json"
+            }
+          });
+
+          if (response.ok) {
+            contactForm.innerHTML = `
+              <div class="form-success-message">
+                <div class="success-icon">✓</div>
+                <h3>Message sent successfully.</h3>
+                <p>
+                  Thank you for reaching out to Elsati Connect.
+                  Our team will get back to you shortly.
+                </p>
+              </div>
+            `;
+          } else {
+            throw new Error("Form submission failed");
+          }
+        } catch (error) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+          alert("Something went wrong. Please try again or email elsaticonnect@gmail.com directly.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>

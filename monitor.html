@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Monitor | Elsati Connect</title>
+  <meta name="description" content="Background monitoring page for Elsati Connect platform activity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell auth-shell">
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home"><img src="elsati.png" alt="Elsati Connect logo"></a>
+      <div class="topbar-actions">
+        <a class="button button-secondary" href="business-dashboard.html">Buyer Portal</a>
+        <a class="button button-secondary" href="supplier-dashboard.html">Supplier Portal</a>
+      </div>
+    </header>
+
+    <main class="dashboard-page reveal">
+      <section class="dashboard-intro">
+        <p class="eyebrow">Background monitor</p>
+        <h1>Platform visibility across buyer and supplier activity.</h1>
+        <p class="auth-copy">This page monitors registrations, RFQs, quotations, and current role activity across the Elsati Connect platform.</p>
+      </section>
+
+      <section class="monitor-grid">
+        <article class="app-panel monitor-stat-card"><small>Business accounts</small><strong id="monitor-business-count">0</strong></article>
+        <article class="app-panel monitor-stat-card"><small>Supplier accounts</small><strong id="monitor-supplier-count">0</strong></article>
+        <article class="app-panel monitor-stat-card"><small>Open RFQs</small><strong id="monitor-rfq-count">0</strong></article>
+        <article class="app-panel monitor-stat-card"><small>Submitted quotes</small><strong id="monitor-quote-count">0</strong></article>
+      </section>
+
+      <section class="app-grid business-app-grid">
+        <section class="app-panel">
+          <div class="panel-head"><h2>Recent business accounts</h2><span>Buyer-side onboarding activity</span></div>
+          <div class="monitor-list" id="monitor-business-list"></div>
+        </section>
+        <section class="app-panel">
+          <div class="panel-head"><h2>Recent supplier accounts</h2><span>Supplier-side onboarding activity</span></div>
+          <div class="monitor-list" id="monitor-supplier-list"></div>
+        </section>
+      </section>
+
+      <section class="app-grid business-app-grid">
+        <section class="app-panel">
+          <div class="panel-head"><h2>RFQ activity</h2><span>Buyer requests currently on the platform</span></div>
+          <div class="monitor-list" id="monitor-rfq-list"></div>
+        </section>
+        <section class="app-panel">
+          <div class="panel-head"><h2>Quote activity</h2><span>Supplier submissions and award states</span></div>
+          <div class="monitor-list" id="monitor-quote-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

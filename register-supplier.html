@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Supplier | Elsati Connect</title>
+  <meta name="description" content="Register your supplier business on Elsati Connect.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions topbar-actions-compact">
+        <a class="login-icon-link" href="signin.html" aria-label="Log in">
+          <span class="login-icon"></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="auth-layout reveal">
+      <section class="auth-panel">
+        <p class="eyebrow">Supplier registration</p>
+        <h1>Join the verified supplier network.</h1>
+        <p class="auth-copy">Register your supplier profile to receive client RFQs, submit quotations digitally, and track decisions transparently.</p>
+
+        <form class="contact-form auth-form" id="supplier-register-form">
+          <label>
+            Supplier company
+            <input type="text" name="company" placeholder="Supplier company" required>
+          </label>
+
+          <label>
+            Contact person
+            <input type="text" name="name" placeholder="Full name" required>
+          </label>
+
+          <label>
+            Supplier email
+            <input type="email" name="email" placeholder="supplier@company.com" required>
+          </label>
+
+          <label>
+            Password
+            <input type="password" name="password" placeholder="Create password" required>
+          </label>
+
+          <button class="button button-primary" type="submit">Register Supplier</button>
+        </form>
+
+        <p class="form-feedback" id="supplier-register-feedback"></p>
+        <p class="auth-note">Already registered? <a href="supplier-signin.html">Sign in as supplier</a></p>
+      </section>
+
+      <section class="dashboard-preview supplier-preview register-preview">
+        <div class="preview-topbar">
+          <span class="preview-brand">Elsati Connect</span>
+          <nav>
+            <span>Open RFQs</span>
+            <span>Quote tracking</span>
+            <span>Award visibility</span>
+          </nav>
+          <button class="mini-cta">Join network</button>
+        </div>
+
+        <div class="preview-body register-body">
+          <div class="register-highlight-grid">
+            <article><strong>Market visibility</strong><p>Get discovered by businesses looking for verified suppliers.</p></article>
+            <article><strong>Standardized submissions</strong><p>Respond to RFQs with a cleaner digital quotation process.</p></article>
+            <article><strong>Trust advantage</strong><p>Verification builds confidence across multiple buyers.</p></article>
+            <article><strong>Status clarity</strong><p>Track review and award progress without manual chasing.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      window.ELSATI_SUPABASE.url,
+      window.ELSATI_SUPABASE.publishableKey
+    );
+
+    const form = document.getElementById("supplier-register-form");
+    const feedback = document.getElementById("supplier-register-feedback");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const companyName = document.querySelector('input[name="company"]').value;
+      const contactName = document.querySelector('input[name="name"]').value;
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+
+      feedback.textContent = "Creating supplier account...";
+
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        feedback.textContent = error.message;
+        return;
+      }
+
+      if (!data.user) {
+        feedback.textContent = "Supplier account could not be created.";
+        return;
+      }
+
+      const { error: profileError } = await supabaseClient
+        .from("profiles")
+        .insert({
+          id: data.user.id,
+          email: email,
+          role: "supplier",
+          company_name: companyName,
+          phone: contactName
+        });
+
+      if (profileError) {
+        feedback.textContent = profileError.message;
+        return;
+      }
+
+      feedback.textContent = "Supplier account created successfully.";
+
+      setTimeout(() => {
+        window.location.href = "supplier-signin.html";
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

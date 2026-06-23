@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding Complete | Elsati Connect</title>
+  <meta name="description" content="Your Elsati Connect onboarding is complete.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell auth-shell">
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home"><img src="elsati.png" alt="Elsati Connect logo"></a>
+      <div class="topbar-actions topbar-actions-compact"><a class="login-icon-link" href="signin.html" aria-label="Log in"><span class="login-icon"></span></a></div>
+    </header>
+
+    <main class="auth-layout reveal">
+      <section class="auth-panel onboarding-panel">
+        <p class="eyebrow">Onboarding complete</p>
+        <h1 id="onboarding-title">Your workspace is ready.</h1>
+        <p class="auth-copy" id="onboarding-copy">We’re preparing your Elsati Connect portal now.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" id="onboarding-continue" href="signin.html">Open Portal</a>
+          <a class="button button-secondary" href="monitor.html">Open Background Monitor</a>
+        </div>
+        <p class="demo-note" id="onboarding-status">Redirecting shortly...</p>
+      </section>
+      <section class="dashboard-preview register-preview">
+        <div class="preview-topbar">
+          <span class="preview-brand">Elsati Connect</span>
+          <nav><span>Onboarding</span><span>Portal Setup</span><span>Verification</span></nav>
+          <button class="mini-cta">Ready</button>
+        </div>
+        <div class="preview-body register-body">
+          <div class="register-highlight-grid">
+            <article><strong>Role-specific portal</strong><p>Each user lands in the correct buyer or supplier workspace automatically.</p></article>
+            <article><strong>Activity visibility</strong><p>Track platform updates from the background monitoring page.</p></article>
+            <article><strong>Faster start</strong><p>Move from sign up to procurement action without extra setup.</p></article>
+            <article><strong>Central control</strong><p>Watch RFQs, quotes, and user activity across both sides of the platform.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

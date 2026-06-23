@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Dashboard | Elsati Connect</title>
+  <meta name="description" content="Business dashboard for Elsati Connect.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .dashboard-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .notification-btn {
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .kpi-card,
+    .profile-panel {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .kpi-card span {
+      color: #64748b;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .kpi-card strong {
+      display: block;
+      font-size: 34px;
+      margin-top: 8px;
+      color: #102033;
+    }
+
+    .dashboard-section-stack {
+      display: grid;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .profile-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .profile-form-grid label.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .supplier-directory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .activity-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .activity-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(248, 250, 252, 0.94);
+      color: #64748b;
+    }
+
+    .activity-item strong {
+      color: #102033;
+      margin-right: 6px;
+    }
+
+    @media (max-width: 1000px) {
+      .kpi-grid,
+      .supplier-directory-grid,
+      .profile-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .kpi-grid,
+      .supplier-directory-grid,
+      .profile-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions dashboard-actions">
+        <button class="notification-btn" type="button">🔔</button>
+        <a class="button button-secondary" href="monitor.html">Background Monitor</a>
+        <button class="button button-secondary" id="logout-button" type="button">Log out</button>
+      </div>
+    </header>
+
+    <main class="dashboard-page reveal">
+
+      <section class="dashboard-intro">
+        <p class="eyebrow">Business dashboard</p>
+
+        <h1>
+          Welcome, <span id="dashboard-user-name">Business user</span>.
+        </h1>
+
+        <p class="auth-copy">
+          Your organization <strong id="dashboard-company-name">Company</strong>
+          can create RFQs, compare supplier quotes, review verified suppliers, and track sourcing decisions.
+        </p>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card">
+          <span>Active RFQs</span>
+          <strong id="active-rfq-count">0</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Quotes Received</span>
+          <strong id="quotes-received-count">0</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Approved Suppliers</span>
+          <strong id="approved-supplier-count">0</strong>
+        </article>
+
+        <article class="kpi-card">
+          <span>Estimated Savings</span>
+          <strong>K0</strong>
+        </article>
+      </section>
+
+      <section class="profile-panel">
+        <div class="panel-head">
+          <h2>Business profile</h2>
+          <span>Complete your buyer profile for better supplier visibility and admin records</span>
+        </div>
+
+        <form class="contact-form compact-form" id="business-profile-form">
+          <div class="profile-form-grid">
+            <label>
+              Business name
+              <input type="text" name="company_name" placeholder="Your business name" required>
+            </label>
+
+            <label>
+              Contact person
+              <input type="text" name="contact_person" placeholder="Full name">
+            </label>
+
+            <label>
+              Contact phone
+              <input type="text" name="contact_phone" placeholder="+260...">
+            </label>
+
+            <label>
+              City
+              <input type="text" name="city" placeholder="Lusaka">
+            </label>
+
+            <label>
+              Country
+              <input type="text" name="country" placeholder="Zambia">
+            </label>
+
+            <label>
+              Business address
+              <input type="text" name="business_address" placeholder="Physical address">
+            </label>
+
+            <label class="full-width">
+              Business description
+              <textarea name="business_description" rows="3" placeholder="Briefly describe your business and procurement needs"></textarea>
+            </label>
+          </div>
+
+          <button class="button button-primary" type="submit">Save Business Profile</button>
+        </form>
+
+        <p class="form-feedback" id="business-profile-feedback"></p>
+      </section>
+
+      <section class="app-grid business-app-grid">
+        <section class="app-panel app-panel-form">
+          <div class="panel-head">
+            <h2>Create request</h2>
+            <span>Send RFQs to suppliers</span>
+          </div>
+
+          <form class="contact-form compact-form" id="rfq-create-form">
+            <label>
+              Request title
+              <input type="text" name="title" placeholder="Office Furniture Supply" required>
+            </label>
+
+            <label>
+              Category
+              <input type="text" name="category" placeholder="Stationery, furniture, ICT, catering...">
+            </label>
+
+            <label>
+              Quantity
+              <input type="number" name="quantity" placeholder="180" required>
+            </label>
+
+            <label>
+              Estimated budget
+              <input type="number" name="estimated_budget" placeholder="25000">
+            </label>
+
+            <label>
+              Delivery location
+              <input type="text" name="delivery_location" placeholder="Lusaka, Zambia">
+            </label>
+
+            <label>
+              Deadline
+              <input type="text" name="deadline" placeholder="5 days" required>
+            </label>
+
+            <label>
+              Notes
+              <textarea name="notes" rows="4" placeholder="Delivery location, required documents, and evaluation criteria" required></textarea>
+            </label>
+
+            <button class="button button-primary" type="submit">Send Request</button>
+          </form>
+
+          <p class="form-feedback" id="rfq-create-feedback"></p>
+        </section>
+
+        <section class="app-panel app-panel-list">
+          <div class="panel-head">
+            <h2>Requests</h2>
+            <span>Select a request to compare quotes</span>
+          </div>
+
+          <div class="request-list" id="business-rfq-list">
+            <p class="empty-state">Loading RFQs...</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="app-grid business-app-grid">
+        <section class="app-panel app-panel-table">
+          <div class="panel-head">
+            <h2>Quote comparison</h2>
+            <span id="comparison-title">Select an RFQ to compare supplier quotes</span>
+          </div>
+
+          <div class="comparison-table" id="business-comparison-table">
+            <p class="empty-state">Supplier quotes will appear here once received.</p>
+          </div>
+        </section>
+
+        <section class="app-panel app-panel-report">
+          <div class="panel-head">
+            <h2>Procurement report</h2>
+            <span>RFQ details, price comparison and decision guidance</span>
+          </div>
+
+          <div class="report-summary" id="procurement-report">
+            <p class="empty-state">Procurement report will appear once RFQs and quotes are available.</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="app-panel">
+        <div class="panel-head">
+          <h2>Verified supplier directory</h2>
+          <span>Approved suppliers currently available on ELSATI</span>
+        </div>
+
+        <div class="supplier-directory-grid" id="business-supplier-directory">
+          <p class="empty-state">Loading verified suppliers...</p>
+        </div>
+      </section>
+
+      <section class="app-panel">
+        <div class="panel-head">
+          <h2>Recent activity</h2>
+          <span>Live procurement updates</span>
+        </div>
+
+        <div class="activity-list" id="business-activity-list">
+          <div class="activity-item"><strong>System</strong> ready for live RFQ creation.</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

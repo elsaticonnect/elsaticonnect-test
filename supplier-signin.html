@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Sign In | Elsati Connect</title>
+  <meta name="description" content="Supplier sign in for Elsati Connect vendors and quotation responders.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-shell auth-shell">
+
+    <header class="topbar auth-topbar">
+      <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
+        <img src="elsati.png" alt="Elsati Connect logo">
+      </a>
+
+      <div class="topbar-actions topbar-actions-compact">
+        <a class="login-icon-link" href="signin.html" aria-label="Log in">
+          <span class="login-icon"></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="auth-layout supplier-auth reveal">
+
+      <section class="auth-panel">
+
+        <p class="eyebrow">Supplier Sign In</p>
+
+        <h1>Respond to requests with confidence.</h1>
+
+        <p class="auth-copy">
+          Track invitations, submit quotations,
+          and see award progress in your supplier workspace.
+        </p>
+
+        <form class="contact-form auth-form" id="supplier-signin-form">
+
+          <label>
+            Supplier email
+            <input
+              type="email"
+              name="email"
+              placeholder="supplier@company.com"
+              required
+            >
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            >
+          </label>
+
+          <div class="auth-options">
+            <label class="checkbox-row">
+              <input type="checkbox"> Remember this device
+            </label>
+
+            <a href="register-supplier.html">Need an account?</a>
+          </div>
+
+          <button class="button button-primary" type="submit">
+            Sign in as Supplier
+          </button>
+
+        </form>
+
+        <p class="form-feedback" id="supplier-signin-feedback"></p>
+
+        <p class="auth-note">
+          Need access?
+          <a href="register-supplier.html">Register as a supplier</a>
+        </p>
+
+      </section>
+
+      <section class="dashboard-preview supplier-preview">
+
+        <div class="preview-topbar">
+          <span class="preview-brand">Elsati Connect</span>
+
+          <nav>
+            <span>Dashboard</span>
+            <span>Open Bids</span>
+            <span>My Quotes</span>
+            <span>Awards</span>
+          </nav>
+
+          <button class="mini-cta">Submit Quote</button>
+        </div>
+
+        <div class="preview-body">
+
+          <aside class="preview-sidebar">
+            <span>Dashboard</span>
+            <span class="active">Open Bids</span>
+            <span>My Quotes</span>
+            <span>Orders</span>
+            <span>Capacity</span>
+            <span>Messages</span>
+            <span>Settings</span>
+          </aside>
+
+          <div class="preview-main">
+
+            <div class="preview-stat-row supplier-stats">
+              <article><small>Open Invitations</small><strong>8</strong></article>
+              <article><small>Submitted Quotes</small><strong>12</strong></article>
+              <article><small>Won Orders</small><strong>5</strong></article>
+              <article><small>Response Rate</small><strong>93%</strong></article>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+
+  <script>
+    const supabaseClient = supabase.createClient(
+      window.ELSATI_SUPABASE.url,
+      window.ELSATI_SUPABASE.publishableKey
+    );
+
+    const form = document.getElementById("supplier-signin-form");
+    const feedback = document.getElementById("supplier-signin-feedback");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const email = document.querySelector('input[name="email"]').value.trim();
+      const password = document.querySelector('input[name="password"]').value;
+
+      feedback.textContent = "Signing in...";
+      feedback.className = "form-feedback";
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        feedback.textContent = error.message;
+        feedback.className = "form-feedback error";
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", data.user.id)
+        .maybeSingle();
+
+      if (profileError || !profile) {
+        feedback.textContent = "Supplier profile not found. Please contact administrator.";
+        feedback.className = "form-feedback error";
+        return;
+      }
+
+      if (profile.role !== "supplier") {
+        feedback.textContent = "This account is not registered as a supplier.";
+        feedback.className = "form-feedback error";
+        await supabaseClient.auth.signOut();
+        return;
+      }
+
+      feedback.textContent = "Login successful. Opening supplier dashboard...";
+      feedback.className = "form-feedback ok";
+
+      window.location.href = "supplier-dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
