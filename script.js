@@ -10,7 +10,9 @@ const observer = new IntersectionObserver(
   { threshold: 0.16 }
 );
 
-document.querySelectorAll(".reveal, .stagger-item").forEach(node => observer.observe(node));
+document.querySelectorAll(".reveal, .stagger-item").forEach(node => {
+  observer.observe(node);
+});
 
 const metrics = document.querySelectorAll(".metric");
 
@@ -44,20 +46,24 @@ const numberObserver = new IntersectionObserver(
   { threshold: 0.5 }
 );
 
-metrics.forEach(metric => numberObserver.observe(metric));
+metrics.forEach(metric => {
+  numberObserver.observe(metric);
+});
 
 const activityItems = document.querySelectorAll(".activity-ticker li");
 let activeActivity = 0;
 
 if (activityItems.length) {
+  activityItems.forEach(item => item.classList.remove("active"));
+  activityItems[0].classList.add("active");
+
   setInterval(() => {
     activityItems.forEach(item => item.classList.remove("active"));
-    activityItems[activeActivity].classList.add("active");
     activeActivity = (activeActivity + 1) % activityItems.length;
-  }, 2200);
+    activityItems[activeActivity].classList.add("active");
+  }, 2600);
 }
 
-/* Hide topbar when scrolling down, show when scrolling up */
 const topbar = document.querySelector(".topbar");
 let lastScrollY = window.scrollY;
 
@@ -78,5 +84,22 @@ if (topbar) {
     }
 
     lastScrollY = currentScrollY;
+  });
+}
+
+const mobileToggle = document.querySelector(".mobile-menu-toggle");
+const nav = document.querySelector(".nav");
+
+if (mobileToggle && nav) {
+  mobileToggle.addEventListener("click", () => {
+    mobileToggle.classList.toggle("is-open");
+    nav.classList.toggle("nav-open");
+  });
+
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      mobileToggle.classList.remove("is-open");
+      nav.classList.remove("nav-open");
+    });
   });
 }
