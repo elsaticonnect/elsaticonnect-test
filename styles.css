@@ -6078,3 +6078,47 @@ h3 {
     border-radius: 28px;
   }
 }
+/* ========================================
+   LEGAL / COMPLIANCE FOOTER
+======================================== */
+
+.site-footer {
+  padding: 40px 24px 60px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 80px;
+}
+
+.footer-legal-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+  color: rgba(255,255,255,0.68);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.footer-legal-links a:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.footer-legal-links a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.9);
+  transition: width 0.3s ease;
+  margin-top: 4px;
+}
+
+.footer-legal-links a:hover::after {
+  width: 100%;
+}
