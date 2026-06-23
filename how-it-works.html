@@ -6,26 +6,258 @@
 
   <title>How It Works | Elsati Connect</title>
 
-  <meta
-    name="description"
-    content="See how Elsati Connect simplifies procurement through supplier verification, quotation workflows, procurement intelligence, and digital sourcing tools."
-  />
+  <meta name="description" content="See how Elsati Connect simplifies procurement through supplier verification, quotation workflows, procurement intelligence, and digital sourcing tools." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .how-page main {
+      width: min(1180px, calc(100% - 48px));
+      margin: 90px auto;
+    }
+
+    .how-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+      padding: 70px 56px;
+      border-radius: 42px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(47,148,88,0.16), transparent 34%),
+        radial-gradient(circle at 90% 18%, rgba(35,103,255,0.14), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.88), rgba(239,246,250,0.76));
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 36px 90px rgba(15,35,55,0.12);
+      margin-bottom: 90px;
+    }
+
+    .how-hero h1 {
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+      margin-bottom: 24px;
+    }
+
+    .how-hero p {
+      max-width: 720px;
+      font-size: 1.05rem;
+      color: #5a6a80;
+    }
+
+    .how-workflow-visual {
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow: 0 28px 70px rgba(15,35,55,0.12);
+    }
+
+    .workflow-mini-step {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(47,148,88,0.1);
+      border: 1px solid rgba(47,148,88,0.16);
+      color: #102033;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .workflow-arrow {
+      text-align: center;
+      font-size: 1.35rem;
+      color: #2f9458;
+      font-weight: 900;
+      margin: 10px 0;
+    }
+
+    .how-section {
+      margin: 90px 0;
+    }
+
+    .how-section-head {
+      max-width: 850px;
+      margin-bottom: 36px;
+    }
+
+    .how-section-head h2 {
+      font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+      margin-bottom: 18px;
+    }
+
+    .how-section-head p {
+      color: #5a6a80;
+      font-size: 1.02rem;
+      max-width: 760px;
+    }
+
+    .how-process-grid,
+    .how-ai-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .how-process-card,
+    .how-side-card,
+    .how-change-card,
+    .how-preview-card,
+    .how-ai-card,
+    .how-principle-card {
+      padding: 30px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow: 0 24px 60px rgba(15,35,55,0.1);
+    }
+
+    .how-step-number,
+    .how-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      padding: 0 14px;
+      border-radius: 16px;
+      background: rgba(47,148,88,0.12);
+      color: #2f9458;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .how-process-card h3,
+    .how-side-card h3,
+    .how-change-card h3,
+    .how-preview-card h3,
+    .how-ai-card h3,
+    .how-principle-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+      color: #102033;
+    }
+
+    .how-process-card p,
+    .how-side-card p,
+    .how-preview-card p,
+    .how-ai-card p,
+    .how-principle-card p {
+      color: #5a6a80;
+      margin-bottom: 0;
+    }
+
+    .how-two-grid,
+    .how-before-after-grid,
+    .how-preview-grid,
+    .how-principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .how-preview-grid,
+    .how-principles-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .how-side-card ul,
+    .how-change-card ul {
+      padding-left: 0;
+      list-style: none;
+      margin: 22px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .how-side-card li,
+    .how-change-card li {
+      color: #5a6a80;
+      font-weight: 750;
+    }
+
+    .how-side-card li::before,
+    .how-change-card.after li::before {
+      content: "✓";
+      color: #2f9458;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .how-change-card.before li::before {
+      content: "×";
+      color: #d9534f;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .how-preview-card strong {
+      display: block;
+      font-size: 3rem;
+      color: #2f9458;
+      margin: 12px 0;
+    }
+
+    .how-final-cta {
+      text-align: center;
+      padding: 70px 34px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(47,148,88,0.22), transparent 34%),
+        linear-gradient(135deg, #102033, #07111f);
+      box-shadow: 0 36px 90px rgba(7,17,31,0.25);
+      margin-top: 100px;
+    }
+
+    .how-final-cta h2 {
+      color: #ffffff;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+    }
+
+    .how-final-cta p {
+      color: rgba(255,255,255,0.76);
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .how-final-cta .hero-actions {
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .how-hero,
+      .how-process-grid,
+      .how-two-grid,
+      .how-before-after-grid,
+      .how-preview-grid,
+      .how-ai-grid,
+      .how-principles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .how-hero {
+        padding: 42px 28px;
+      }
+
+      .how-page main {
+        width: calc(100% - 28px);
+      }
+    }
+  </style>
 </head>
 
-<body class="inner-page">
+<body class="inner-page how-page">
   <div class="site-shell">
 
-    <!-- NAVBAR -->
     <header class="topbar">
       <a class="brand brand-image" href="index.html" aria-label="Elsati Connect home">
         <img src="elsati.png" alt="Elsati Connect logo" />
@@ -46,80 +278,43 @@
       </div>
     </header>
 
-    <!-- MAIN -->
     <main>
 
-      <!-- HERO -->
       <section class="how-hero reveal">
-
         <div class="how-hero-copy">
           <p class="eyebrow">How It Works</p>
 
-          <h1>
-            Procurement, simplified from request to delivery.
-          </h1>
+          <h1>Procurement, simplified from request to delivery.</h1>
 
           <p>
-            Businesses submit procurement requests, verified suppliers respond
-            with quotations, and teams compare options through one structured
-            workflow designed for speed, transparency, and better decision-making.
+            Businesses submit procurement requests, verified suppliers respond with quotations,
+            and teams compare options through one structured workflow designed for speed,
+            transparency, and better decision-making.
           </p>
 
           <div class="hero-actions">
-            <a href="contact.html" class="button button-primary">
-              Request Demo
-            </a>
-
-            <a href="#supplier-flow" class="button button-secondary">
-              View Supplier Flow
-            </a>
+            <a href="contact.html" class="button button-primary">Request Demo</a>
+            <a href="#supplier-flow" class="button button-secondary">View Supplier Flow</a>
           </div>
         </div>
 
         <div class="how-workflow-visual">
-
-          <div class="workflow-mini-step">
-            Request Submitted
-          </div>
-
+          <div class="workflow-mini-step">Request Submitted</div>
           <div class="workflow-arrow">↓</div>
-
-          <div class="workflow-mini-step">
-            Suppliers Respond
-          </div>
-
+          <div class="workflow-mini-step">Suppliers Respond</div>
           <div class="workflow-arrow">↓</div>
-
-          <div class="workflow-mini-step">
-            Compare Quotations
-          </div>
-
+          <div class="workflow-mini-step">Compare Quotations</div>
           <div class="workflow-arrow">↓</div>
-
-          <div class="workflow-mini-step">
-            Select Supplier
-          </div>
-
+          <div class="workflow-mini-step">Select Supplier</div>
           <div class="workflow-arrow">↓</div>
-
-          <div class="workflow-mini-step">
-            Delivery & Tracking
-          </div>
-
+          <div class="workflow-mini-step">Delivery & Tracking</div>
         </div>
-
       </section>
 
-      <!-- MAIN PROCESS -->
       <section class="how-section reveal">
-
         <div class="how-section-head">
           <p class="eyebrow">Workflow</p>
-
-          <h2>
-            A structured sourcing workflow from start to finish.
-          </h2>
-
+          <h2>A structured sourcing workflow from start to finish.</h2>
           <p>
             Elsati Connect organizes procurement into clear steps so requests,
             quotations, supplier decisions, and fulfillment stay easy to follow.
@@ -127,91 +322,49 @@
         </div>
 
         <div class="how-process-grid">
-
           <article class="how-process-card">
             <span class="how-step-number">01</span>
-
             <h3>Post a procurement request</h3>
-
-            <p>
-              Businesses describe the products or services they need,
-              including quantities, timelines, and delivery requirements.
-            </p>
+            <p>Businesses describe the products or services they need, including quantities, timelines, and delivery requirements.</p>
           </article>
 
           <article class="how-process-card">
             <span class="how-step-number">02</span>
-
             <h3>Verified suppliers respond</h3>
-
-            <p>
-              Approved suppliers receive relevant opportunities and submit
-              quotations directly through the platform.
-            </p>
+            <p>Approved suppliers receive relevant opportunities and submit quotations directly through the platform.</p>
           </article>
 
           <article class="how-process-card">
             <span class="how-step-number">03</span>
-
             <h3>Compare quotations clearly</h3>
-
-            <p>
-              Teams review pricing, timelines, supplier profiles, and future
-              AI-driven recommendations in one place.
-            </p>
+            <p>Teams review pricing, timelines, supplier profiles, and future AI-driven recommendations in one place.</p>
           </article>
 
           <article class="how-process-card">
             <span class="how-step-number">04</span>
-
             <h3>Select the best-fit supplier</h3>
-
-            <p>
-              Procurement teams choose suppliers confidently using transparent
-              and structured comparisons.
-            </p>
+            <p>Procurement teams choose suppliers confidently using transparent and structured comparisons.</p>
           </article>
 
           <article class="how-process-card">
             <span class="how-step-number">05</span>
-
             <h3>Manage fulfillment & delivery</h3>
-
-            <p>
-              Suppliers fulfill requests directly or access partnered logistics
-              support when additional delivery capacity is needed.
-            </p>
+            <p>Suppliers fulfill requests directly or access partnered logistics support when additional delivery capacity is needed.</p>
           </article>
-
         </div>
-
       </section>
 
-      <!-- BUSINESS & SUPPLIERS -->
       <section class="how-section reveal" id="supplier-flow">
-
         <div class="how-section-head">
           <p class="eyebrow">Platform Users</p>
-
-          <h2>
-            Built for both sides of procurement.
-          </h2>
+          <h2>Built for both sides of procurement.</h2>
         </div>
 
         <div class="how-two-grid">
-
-          <!-- BUSINESS -->
           <article class="how-side-card">
-
             <span class="how-icon">B</span>
-
             <h3>For Businesses</h3>
-
-            <p>
-              Centralize procurement requests, compare supplier quotations
-              faster, and maintain visibility across sourcing decisions.
-            </p>
-
+            <p>Centralize procurement requests, compare supplier quotations faster, and maintain visibility across sourcing decisions.</p>
             <ul>
               <li>Create RFQs</li>
               <li>Compare supplier quotations</li>
@@ -219,21 +372,12 @@
               <li>Maintain audit visibility</li>
               <li>Generate procurement reports</li>
             </ul>
-
           </article>
 
-          <!-- SUPPLIERS -->
           <article class="how-side-card">
-
             <span class="how-icon">S</span>
-
             <h3>For Suppliers</h3>
-
-            <p>
-              Access procurement opportunities, respond to requests efficiently,
-              and build supplier credibility over time.
-            </p>
-
+            <p>Access procurement opportunities, respond to requests efficiently, and build supplier credibility over time.</p>
             <ul>
               <li>Receive procurement opportunities</li>
               <li>Submit quotations digitally</li>
@@ -241,30 +385,19 @@
               <li>Access future logistics support</li>
               <li>Access future financing partnerships</li>
             </ul>
-
           </article>
-
         </div>
-
       </section>
 
-      <!-- BEFORE VS AFTER -->
       <section class="how-section reveal">
-
         <div class="how-section-head">
           <p class="eyebrow">What Changes</p>
-
-          <h2>
-            Replacing fragmented procurement processes.
-          </h2>
+          <h2>Replacing fragmented procurement processes.</h2>
         </div>
 
         <div class="how-before-after-grid">
-
           <article class="how-change-card before">
-
             <h3>Before Elsati Connect</h3>
-
             <ul>
               <li>RFQs scattered across emails and WhatsApp</li>
               <li>Manual quotation comparison</li>
@@ -272,13 +405,10 @@
               <li>Delayed procurement decisions</li>
               <li>Difficult audit tracking</li>
             </ul>
-
           </article>
 
           <article class="how-change-card after">
-
             <h3>With Elsati Connect</h3>
-
             <ul>
               <li>Centralized procurement workflows</li>
               <li>Structured supplier responses</li>
@@ -286,33 +416,21 @@
               <li>Faster procurement decisions</li>
               <li>Better operational visibility</li>
             </ul>
-
           </article>
-
         </div>
-
       </section>
 
-      <!-- PREVIEW -->
       <section class="how-section reveal">
-
         <div class="how-section-head">
-
           <p class="eyebrow">Platform Preview</p>
-
-          <h2>
-            Everything stays in one workspace.
-          </h2>
-
+          <h2>Everything stays in one workspace.</h2>
           <p>
             Requests, quotations, supplier communication, and procurement
             decisions are organized in one centralized system.
           </p>
-
         </div>
 
         <div class="how-preview-grid">
-
           <article class="how-preview-card">
             <h3>Active RFQs</h3>
             <strong>12</strong>
@@ -330,134 +448,80 @@
             <strong>92%</strong>
             <p>Future AI-assisted supplier matching score.</p>
           </article>
-
         </div>
-
       </section>
 
-      <!-- AI -->
       <section class="how-section reveal">
-
         <div class="how-section-head">
-
           <p class="eyebrow">Data Intelligence</p>
-
-          <h2>
-            Smarter procurement through data intelligence.
-          </h2>
-
+          <h2>Smarter procurement through data intelligence.</h2>
           <p>
-            Elsati Connect is evolving beyond procurement workflows into
-            intelligent procurement support through analytics, supplier
-            insights, and AI-assisted decision-making.
+            Elsati Connect is evolving beyond procurement workflows into intelligent
+            procurement support through analytics, supplier insights, and AI-assisted decision-making.
           </p>
-
         </div>
 
         <div class="how-ai-grid">
-
           <article class="how-ai-card">
             <span class="how-icon">01</span>
             <h3>Supplier Insights</h3>
-            <p>
-              Track supplier responsiveness, reliability,
-              and performance history.
-            </p>
+            <p>Track supplier responsiveness, reliability, and performance history.</p>
           </article>
 
           <article class="how-ai-card">
             <span class="how-icon">02</span>
             <h3>Smart Comparison</h3>
-            <p>
-              Compare quotations faster using structured
-              supplier and pricing data.
-            </p>
+            <p>Compare quotations faster using structured supplier and pricing data.</p>
           </article>
 
           <article class="how-ai-card">
             <span class="how-icon">03</span>
             <h3>Procurement Analytics</h3>
-            <p>
-              Generate reports and visibility across
-              sourcing activity.
-            </p>
+            <p>Generate reports and visibility across sourcing activity.</p>
           </article>
 
           <article class="how-ai-card">
             <span class="how-icon">04</span>
             <h3>Predictive Procurement</h3>
-            <p>
-              Future AI tools will help businesses identify
-              optimal suppliers and procurement patterns.
-            </p>
+            <p>Future AI tools will help businesses identify optimal suppliers and procurement patterns.</p>
           </article>
-
         </div>
-
       </section>
 
-      <!-- PRINCIPLES -->
       <section class="how-section reveal">
-
         <div class="how-section-head">
           <p class="eyebrow">Principles</p>
-
-          <h2>
-            Built around trust and accountability.
-          </h2>
+          <h2>Built around trust and accountability.</h2>
         </div>
 
         <div class="how-principles-grid">
-
           <article class="how-principle-card">
             <h3>Transparent Procurement</h3>
-            <p>
-              Every sourcing decision remains visible and easy to review.
-            </p>
+            <p>Every sourcing decision remains visible and easy to review.</p>
           </article>
 
           <article class="how-principle-card">
             <h3>Supplier-Friendly Workflows</h3>
-            <p>
-              Simple processes reduce friction for vendors responding to requests.
-            </p>
+            <p>Simple processes reduce friction for vendors responding to requests.</p>
           </article>
 
           <article class="how-principle-card">
             <h3>Faster Team Decisions</h3>
-            <p>
-              Structured comparisons help teams move with confidence.
-            </p>
+            <p>Structured comparisons help teams move with confidence.</p>
           </article>
-
         </div>
-
       </section>
 
-      <!-- FINAL CTA -->
       <section class="how-final-cta reveal">
-
-        <h2>
-          Ready to modernize procurement?
-        </h2>
-
+        <h2>Ready to modernize procurement?</h2>
         <p>
-          Move procurement out of inboxes and spreadsheets into one transparent
-          sourcing workflow.
+          Move procurement out of inboxes and spreadsheets into one transparent sourcing workflow.
         </p>
 
         <div class="hero-actions">
-
-          <a href="contact.html" class="button button-primary">
-            Request Demo
-          </a>
-
-          <a href="contact.html" class="button button-secondary">
-            Join as Supplier
-          </a>
-
+          <a href="contact.html" class="button button-primary">Request Demo</a>
+          <a href="contact.html" class="button button-secondary">Join as Supplier</a>
         </div>
-
       </section>
 
     </main>
