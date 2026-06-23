@@ -97,3 +97,93 @@ body:not(.home-page) .floating-screen {
   position: relative;
   transform: none;
 }
+/* ========================================
+   INNER PAGE REPAIR
+======================================== */
+
+body.inner-page {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(47,148,88,0.12), transparent 30%),
+    radial-gradient(circle at 90% 12%, rgba(35,103,255,0.12), transparent 32%),
+    linear-gradient(180deg, #f8fbfd 0%, #edf5f9 48%, #ffffff 100%) !important;
+  color: #102033 !important;
+}
+
+body.inner-page main {
+  width: min(1180px, calc(100% - 48px)) !important;
+  margin: 100px auto !important;
+}
+
+body.inner-page section {
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 80px auto !important;
+  padding: 0 !important;
+}
+
+body.inner-page h1 {
+  font-size: clamp(3rem, 6vw, 5.8rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.065em !important;
+  max-width: 1200px !important;
+  margin-bottom: 28px !important;
+}
+
+body.inner-page h2 {
+  font-size: clamp(2.2rem, 4vw, 4rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.055em !important;
+}
+
+body.inner-page p {
+  max-width: 900px !important;
+  color: #5a6a80 !important;
+  font-size: 1rem !important;
+  line-height: 1.75 !important;
+}
+
+body.inner-page .topbar {
+  width: min(1180px, calc(100% - 40px)) !important;
+  margin: 18px auto 0 !important;
+}
+
+body.inner-page .brand-image img {
+  height: 44px !important;
+  width: auto !important;
+  max-height: 44px !important;
+}
+
+body.inner-page .journey-section,
+body.inner-page .ai-intelligence-section,
+body.inner-page .live-activity-box,
+body.inner-page .proof,
+body.inner-page .trust-strip,
+body.inner-page .tagline-call,
+body.inner-page .homepage-final-conversion {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 80px auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.inner-page .premium-hero,
+body.inner-page .journey-section-alt {
+  min-height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.inner-page .dashboard-window,
+body.inner-page .ai-main-card,
+body.inner-page .floating-screen,
+body.inner-page .ai-floating-card {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+}
