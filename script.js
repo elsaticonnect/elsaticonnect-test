@@ -56,3 +56,27 @@ if (activityItems.length) {
     activeActivity = (activeActivity + 1) % activityItems.length;
   }, 2200);
 }
+
+/* Hide topbar when scrolling down, show when scrolling up */
+const topbar = document.querySelector(".topbar");
+let lastScrollY = window.scrollY;
+
+if (topbar) {
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 40) {
+      topbar.classList.add("topbar-scrolled");
+    } else {
+      topbar.classList.remove("topbar-scrolled");
+    }
+
+    if (currentScrollY > lastScrollY && currentScrollY > 140) {
+      topbar.classList.add("topbar-hidden");
+    } else {
+      topbar.classList.remove("topbar-hidden");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+}
