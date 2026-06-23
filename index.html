@@ -33,6 +33,12 @@
         <a class="login-icon-link" href="signin.html" aria-label="Log in">
           <span class="login-icon"></span>
         </a>
+
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
 
@@ -461,33 +467,6 @@
     </footer>
 
   </div>
-
-  <script>
-    (function () {
-      const topbar = document.querySelector(".topbar");
-      let lastScrollY = window.scrollY;
-
-      if (!topbar) return;
-
-      window.addEventListener("scroll", function () {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY > 40) {
-          topbar.classList.add("topbar-scrolled");
-        } else {
-          topbar.classList.remove("topbar-scrolled");
-        }
-
-        if (currentScrollY > lastScrollY && currentScrollY > 140) {
-          topbar.classList.add("topbar-hidden");
-        } else {
-          topbar.classList.remove("topbar-hidden");
-        }
-
-        lastScrollY = currentScrollY;
-      });
-    })();
-  </script>
 
   <script src="script.js"></script>
 </body>
