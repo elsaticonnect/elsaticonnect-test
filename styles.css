@@ -3494,3 +3494,31 @@ p { margin: 0; }
     padding-top: 48px;
   }
 }
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.footer-logo img {
+  width: 140px !important;
+  height: auto !important;
+  max-width: 140px !important;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 18px 0;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
