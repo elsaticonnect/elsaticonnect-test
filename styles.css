@@ -3320,3 +3320,177 @@ p { margin: 0; }
   .site-shell { margin: 0; width: 100%; }
   .reveal, .stagger-item { opacity: 1; transform: none; }
 }
+/* ===============================
+   FIX: HEADER HIDE ON SCROLL
+================================ */
+.topbar {
+  position: sticky;
+  top: 12px;
+  z-index: 999;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.topbar.header-hidden {
+  transform: translateY(-140%);
+  opacity: 0;
+}
+
+
+/* ===============================
+   FIX: FOOTER HUGE LOGO
+================================ */
+.footer,
+.site-footer {
+  margin-top: 80px;
+  padding: 48px 0 32px;
+}
+
+.footer img,
+.site-footer img,
+.footer-logo img {
+  max-width: 150px;
+  height: auto;
+  display: block;
+}
+
+.footer .brand img,
+.site-footer .brand img {
+  max-width: 150px !important;
+  width: 150px !important;
+  height: auto !important;
+}
+
+.footer-links,
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.footer-links a,
+.site-footer-links a {
+  color: var(--muted);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.site-footer-links a:hover {
+  color: var(--blue);
+}
+
+
+/* ===============================
+   FIX: BAD ICONS ON TRUST CARDS
+================================ */
+.trust-check-icon,
+.verify-icon,
+.check-icon {
+  font-family: inherit;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  position: relative;
+}
+
+.trust-check-icon::before,
+.verify-icon::before,
+.check-icon::before {
+  content: "✓";
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+
+/* ===============================
+   FIX: PRICING PAGE BROKEN LAYOUT
+================================ */
+.pricing-hero,
+.pricing-section,
+.pricing-content {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 72px 24px 40px;
+}
+
+.pricing-hero h1,
+.pricing-section h1 {
+  max-width: 980px;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+  margin-bottom: 18px;
+}
+
+.pricing-hero p,
+.pricing-section p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.pricing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.pricing-cards,
+.access-paths,
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 48px;
+}
+
+.pricing-card,
+.access-card,
+.plan-card {
+  padding: 34px 30px;
+  border-radius: var(--r-2xl);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+}
+
+.pricing-card h3,
+.access-card h3,
+.plan-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+  color: var(--navy);
+}
+
+.pricing-card p,
+.access-card p,
+.plan-card p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .pricing-cards,
+  .access-paths,
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-hero,
+  .pricing-section,
+  .pricing-content {
+    padding-top: 48px;
+  }
+}
