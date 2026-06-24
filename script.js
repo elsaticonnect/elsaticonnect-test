@@ -103,3 +103,20 @@ if (mobileToggle && nav) {
     });
   });
 }
+/* Hide header when scrolling down, show when scrolling up */
+let lastScrollY = window.scrollY;
+const topbar = document.querySelector(".topbar");
+
+window.addEventListener("scroll", () => {
+  if (!topbar) return;
+
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > lastScrollY && currentScrollY > 120) {
+    topbar.classList.add("header-hidden");
+  } else {
+    topbar.classList.remove("header-hidden");
+  }
+
+  lastScrollY = currentScrollY;
+});
